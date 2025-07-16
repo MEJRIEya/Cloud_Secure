@@ -19,7 +19,8 @@ public class User {
     private String password;
     private String telephonne;
 
-    private String role = "USER"; // valeurs possibles : "USER", "ADMIN"
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;  // valeurs possibles : "USER", "ADMIN"
 
     // === Getters et Setters ===
 
@@ -71,11 +72,11 @@ public class User {
         this.telephonne = telephonne;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
+    public void setRole(Role role) {
 
-    public void setRole(String role) {
         this.role = role;
     }
 }

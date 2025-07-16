@@ -3,5 +3,10 @@ package com.cloudsecure.backend.repositories;
 import com.cloudsecure.backend.models.Evaluation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {}
+import java.util.List;
+
+public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
+
+    List<Evaluation> findByUserId(Long userId);
+}
 

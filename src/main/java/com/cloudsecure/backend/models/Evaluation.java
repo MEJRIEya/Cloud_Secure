@@ -59,4 +59,10 @@ public class Evaluation {
     public Long getUserId() {
         return userId;
     }
+
+
+    public LocalDateTime getDateEvaluation() {
+
+        return submittedAt;
+    }
 }

@@ -2,6 +2,7 @@ package com.cloudsecure.backend.services;
 
 import com.cloudsecure.backend.dtos.LoginDTO;
 import com.cloudsecure.backend.dtos.UserRegisterDTO;
+import com.cloudsecure.backend.models.Role;
 import com.cloudsecure.backend.models.User;
 import com.cloudsecure.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserService {
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setTelephonne(dto.getTelephonne());
-        user.setRole("USER");
+        user.setRole(Role.USER);
 
         return userRepository.save(user);
     }
@@ -63,7 +64,7 @@ public class UserService {
         if (dto.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
-        user.setRole(dto.getRole());
+        user.setRole(Role.valueOf(dto.getRole()));
         return userRepository.save(user);
     }
 

@@ -19,13 +19,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()    // endpoint d'authentification libre
-                        .requestMatchers("/api/evaluation/questions").permitAll() // questions publiques
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/evaluation/questions").permitAll()
+                        .requestMatchers("/api/recommendations/**").permitAll()
+                        .requestMatchers("/api/dashboard/**").permitAll()
+                        .requestMatchers("/api/resources").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .httpBasic(); // méthode d'authentification (login+mdp)
+                .csrf(csrf -> csrf.disable()) //
+                .httpBasic(httpBasic -> {});
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
