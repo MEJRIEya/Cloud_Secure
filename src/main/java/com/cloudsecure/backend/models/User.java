@@ -1,6 +1,7 @@
 package com.cloudsecure.backend.models;
 
 import jakarta.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "user")
@@ -21,6 +22,15 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;  // valeurs possibles : "USER", "ADMIN"
+
+    // Password reset
+    private String resetToken;
+    private Instant resetTokenExpiry;
+
+    // Email verification
+    private boolean emailVerified = false;
+    private String emailVerificationToken;
+    private Instant emailVerificationExpiry;
 
     // === Getters et Setters ===
 
@@ -78,5 +88,45 @@ public class User {
     public void setRole(Role role) {
 
         this.role = role;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public Instant getResetTokenExpiry() {
+        return resetTokenExpiry;
+    }
+
+    public void setResetTokenExpiry(Instant resetTokenExpiry) {
+        this.resetTokenExpiry = resetTokenExpiry;
+    }
+
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
+    public String getEmailVerificationToken() {
+        return emailVerificationToken;
+    }
+
+    public void setEmailVerificationToken(String emailVerificationToken) {
+        this.emailVerificationToken = emailVerificationToken;
+    }
+
+    public Instant getEmailVerificationExpiry() {
+        return emailVerificationExpiry;
+    }
+
+    public void setEmailVerificationExpiry(Instant emailVerificationExpiry) {
+        this.emailVerificationExpiry = emailVerificationExpiry;
     }
 }

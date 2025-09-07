@@ -1,9 +1,6 @@
 package com.cloudsecure.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Answer {
@@ -11,14 +8,16 @@ public class Answer {
     @GeneratedValue
     private Long id;
 
+    private String response; // réponse de l'utilisateur (oui/non/etc.)
+    private boolean isRisky; // réponse mauvaise = true
+
     @ManyToOne
+    @JoinColumn(name = "evaluation_id", nullable = false)
     private Evaluation evaluation;
 
     @ManyToOne
+    @JoinColumn(name = "question_id", nullable = false)
     private Question question;
-
-    private String response; // réponse de l'utilisateur (oui/non/etc.)
-    private boolean isRisky; // réponse mauvaise = true
 
     // getters, setters
 

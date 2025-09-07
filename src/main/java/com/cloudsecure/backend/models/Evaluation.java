@@ -3,6 +3,7 @@ package com.cloudsecure.backend.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,8 +16,10 @@ public class Evaluation {
     private int totalScore;
     private LocalDateTime submittedAt;
 
-    @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL)
-    private List<Answer> answers;
+    @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new ArrayList<>();
+
+
 
     public void setUserId(Long userId) {
         this.userId = userId;

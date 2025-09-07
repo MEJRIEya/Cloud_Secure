@@ -10,5 +10,6 @@ public class UserRegisterDTO {
     private String password;
     private String telephonne;
     private String role;
+    private String recaptchaToken;
 
 }

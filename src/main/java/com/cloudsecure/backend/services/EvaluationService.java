@@ -16,14 +16,22 @@ import java.util.List;
 @Service
 public class EvaluationService {
 
-    @Autowired
-    private QuestionRepository questionRepo;
+    private final QuestionRepository questionRepo;
+    private final EvaluationRepository evaluationRepo;
 
     @Autowired
-    private EvaluationRepository evaluationRepo;
+    public EvaluationService(QuestionRepository questionRepo, EvaluationRepository evaluationRepo) {
+        this.questionRepo = questionRepo;
+        this.evaluationRepo = evaluationRepo;
+    }
+
+    public List<Evaluation> getByUserId(Long userId) {
+        return evaluationRepo.findByUserId(userId);
+    }
 
     public Evaluation createEvaluation(Long userId, List<UserResponseDTO> responses) {
         int totalScore = 0;
+
         Evaluation eval = new Evaluation();
         eval.setUserId(userId);
         eval.setSubmittedAt(LocalDateTime.now());
@@ -35,10 +43,12 @@ public class EvaluationService {
                     .orElseThrow(() -> new RuntimeException("Question non trouvée avec ID : " + dto.getQuestionId()));
 
             boolean isRisky = evaluateRisk(dto.getResponse(), question);
-            if (isRisky) totalScore += question.getRiskWeight();
+            if (isRisky) {
+                totalScore += question.getRiskWeight();
+            }
 
             Answer answer = new Answer();
-            answer.setEvaluation(eval);
+            answer.setEvaluation(eval); // lien bidirectionnel
             answer.setQuestion(question);
             answer.setResponse(dto.getResponse());
             answer.setIsRisky(isRisky);
@@ -49,12 +59,12 @@ public class EvaluationService {
         eval.setAnswers(answers);
         eval.setTotalScore(totalScore);
 
+        // CascadeType.ALL dans Evaluation => Answers aussi seront sauvegardés
         return evaluationRepo.save(eval);
     }
 
     private boolean evaluateRisk(String response, Question question) {
-        // logique simple : par ex. "non" = risque
+        // logique simple : "non" = risqué
         return response.equalsIgnoreCase("non");
     }
 }
-
