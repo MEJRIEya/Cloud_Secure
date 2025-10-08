@@ -52,6 +52,7 @@ public class UserService {
         if (user == null) return false;
         return passwordEncoder.matches(dto.getPassword(), user.getPassword());
     }
+
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -94,23 +95,23 @@ public class UserService {
     public void resetPassword(String token, String newPassword) {
         System.out.println("=== RESET PASSWORD DEBUG ===");
         System.out.println("Token reçu: " + token);
-        
+
         Optional<User> userOpt = userRepository.findByResetToken(token);
         if (userOpt.isEmpty()) {
             System.out.println("❌ Token non trouvé dans la base de données");
             throw new RuntimeException("Invalid token");
         }
-        
+
         User user = userOpt.get();
         System.out.println("✅ Utilisateur trouvé: " + user.getEmail());
         System.out.println("Token expiry: " + user.getResetTokenExpiry());
         System.out.println("Maintenant: " + Instant.now());
-        
+
         if (user.getResetTokenExpiry() == null || Instant.now().isAfter(user.getResetTokenExpiry())) {
             System.out.println("❌ Token expiré");
             throw new RuntimeException("Token expired");
         }
-        
+
         System.out.println("✅ Token valide, mise à jour du mot de passe");
         user.setPassword(passwordEncoder.encode(newPassword));
         user.setResetToken(null);

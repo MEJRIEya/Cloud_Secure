@@ -21,6 +21,7 @@ public class DashboardDTO {
     public int getTotalEvaluations() {
         return totalEvaluations;
     }
+
     public void setTotalEvaluations(int totalEvaluations) {
         this.totalEvaluations = totalEvaluations;
     }
@@ -39,6 +40,7 @@ public class DashboardDTO {
 
         return history;
     }
+
     public void setHistory(List<EvaluationSummaryDTO> history) {
 
         this.history = history;

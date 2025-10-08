@@ -20,7 +20,6 @@ public class Evaluation {
     private List<Answer> answers = new ArrayList<>();
 
 
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }

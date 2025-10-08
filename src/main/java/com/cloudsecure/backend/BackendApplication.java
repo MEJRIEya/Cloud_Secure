@@ -14,9 +14,9 @@ import java.util.List;
 @SpringBootApplication
 public class BackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApplication.class, args);
+    }
 
 //	@Bean
 //	public CommandLineRunner loadData(ResourceRepository repo) {
@@ -42,7 +42,7 @@ public class BackendApplication {
 //		};
 //	}
 
-	// Le bean CommandLineRunner est une méthode annotée @Bean, hors de la méthode main
+    // Le bean CommandLineRunner est une méthode annotée @Bean, hors de la méthode main
 //	@Bean
 //	public CommandLineRunner testQuestionRepo(QuestionRepository questionRepo) {
 //		return args -> {

@@ -1,6 +1,7 @@
 package com.cloudsecure.backend.models;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
 
 @Entity
@@ -85,6 +86,7 @@ public class User {
     public Role getRole() {
         return role;
     }
+
     public void setRole(Role role) {
 
         this.role = role;

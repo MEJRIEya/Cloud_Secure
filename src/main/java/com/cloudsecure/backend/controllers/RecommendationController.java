@@ -27,6 +27,7 @@ public class RecommendationController {
     public ResponseEntity<Recommendation> addRecommendation(@RequestBody Recommendation recommendation) {
         return ResponseEntity.ok(service.saveRecommendation(recommendation));
     }
+
     @PostMapping("/add-multiple")
     public ResponseEntity<List<Recommendation>> addMultiple(@RequestBody List<Recommendation> recommendations) {
         return ResponseEntity.ok(service.saveAll(recommendations));
@@ -52,8 +53,6 @@ public class RecommendationController {
         }
         return ResponseEntity.noContent().build(); // 204 No Content
     }
-
-
 
 
 }

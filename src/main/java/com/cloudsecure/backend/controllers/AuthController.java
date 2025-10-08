@@ -74,8 +74,6 @@ public class AuthController {
     }
 
 
-
-
     @GetMapping("/all")
     public List<User> all() {
         return userService.getAll();
@@ -99,19 +97,19 @@ public class AuthController {
             // Extraire l'email du token JWT
             String email = JwtUtil.extractEmail(token.replace("Bearer ", ""));
             User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-            
+
             // Utiliser l'ID de l'utilisateur connecté
             Long userId = user.getId();
             System.out.println("=== UPDATE PROFILE DEBUG ===");
             System.out.println("User ID: " + userId);
             System.out.println("User email: " + email);
             System.out.println("New data: " + dto.getNom() + " " + dto.getPrenom());
-            
+
             // Mettre à jour via la méthode existante qui utilise l'ID
             User updatedUser = userService.update(userId, dto);
             System.out.println("✅ Profile updated successfully");
             System.out.println("=== END UPDATE PROFILE DEBUG ===");
-            
+
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
             System.out.println("❌ Error updating profile: " + e.getMessage());
